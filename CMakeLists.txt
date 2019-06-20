@@ -12,10 +12,25 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew-2.1.0/include/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 add_definitions(-DARCBALL_CAMERA_IMPLEMENTATION)
-add_executable(opengl-demos demo1.cpp arcball.h)
-add_dependencies(opengl-demos glfw-3.3 glew-2.1.0)
-if (WIN32)
-	target_link_libraries(opengl-demos glfw-3.3 glew-2.1.0 ${OPENGL_LIBRARIES})
-else()
-	target_link_libraries(opengl-demos glfw-3.3 glew-2.1.0 ${OPENGL_LIBRARIES} X11 pthread)
-endif()
+
+function(set_app name src)
+	add_executable(${name} ${src})
+	add_dependencies(${name} glfw-3.3 glew-2.1.0)
+	if (WIN32)
+		target_link_libraries(${name} glfw-3.3 glew-2.1.0 ${OPENGL_LIBRARIES})
+	else()
+		target_link_libraries(${name} glfw-3.3 glew-2.1.0 ${OPENGL_LIBRARIES} X11 pthread)
+	endif()
+endfunction()
+
+set(
+	DEMO1_SRC
+	demo1.cpp
+)
+set_app(demo1 ${DEMO1_SRC})
+
+set(
+	DEMO2_SRC
+	demo2.cpp
+)
+set_app(demo2 ${DEMO1_SRC})
