@@ -9,6 +9,7 @@ if (UNIX)
              ${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/include/GL/glxew.h
        )
 else()
+    add_definitions(-DGLEW_BUILD)
     set(GLEW_SRC ${GLEW_SRC}
              ${CMAKE_CURRENT_SOURCE_DIR}/glew-2.1.0/include/GL/wglew.h
        )
@@ -56,6 +57,8 @@ if (UNIX)
             ${CMAKE_CURRENT_SOURCE_DIR}/glfw-3.3/src/osmesa_context.c)
 else()
     add_definitions(-D_GLFW_WIN32)
+  
+    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
     set(GLFW_SRC
             ${GLFW_SRC}
             ${CMAKE_CURRENT_SOURCE_DIR}/glfw-3.3/src/win32_platform.h
